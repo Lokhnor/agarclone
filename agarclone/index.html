@@ -7,27 +7,50 @@
 
 <script>
   var ctx = document.getElementById("ctx").getContext("2d");
+  var canvas = document.getElementById("ctx");
   var x = 200;
   var y = 200;
   var stepX = 10;
   var stepY = 10;
 
   var moveRight = false;
-
-  drawGame();
-
-  document.onkeydown = function(event) {
-    if (event.keyCode === 68) {
-      moveRight = true;
-    }
-  };
-
-  if (moveRight == true) {
-    x + stepX;
-  }
-  setInterval(drawGame, 100);
+  var moveLeft = false;
+  var moveUp = false;
+  setInterval(drawGame, 16);
 
   function drawGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillRect(x, y, 30, 30);
+    //draw player
+    document.onkeydown = function(event) {
+      if (event.keyCode === 68) {
+        moveRight = true;
+      }
+      if (event.keyCode === 65) {
+        moveLeft = true;
+      }
+      if (event.keyCode === 87) {
+        moveUp = true;
+      }
+    };
+
+    document.onkeyup = function(event) {
+      if (event.keyCode === 68) {
+        moveRight = false;
+      }
+      if (event.keyCode === 65) {
+        moveLeft = false;
+      }
+    };
+
+    if (moveRight == true) {
+      x += stepX;
+    }
+    if (moveLeft == true) {
+      x -= stepX;
+    }
+    if (moveUp == true) {
+      y += stepY;
+    }
   }
 </script>
