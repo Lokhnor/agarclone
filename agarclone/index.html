@@ -8,49 +8,92 @@
 <script>
   var ctx = document.getElementById("ctx").getContext("2d");
   var canvas = document.getElementById("ctx");
-  var x = 200;
-  var y = 200;
-  var stepX = 10;
-  var stepY = 10;
 
-  var moveRight = false;
-  var moveLeft = false;
-  var moveUp = false;
-  setInterval(drawGame, 16);
+  var player = {
+    x: 200,
+    y: 200,
+    stepX: 2,
+    stepY: 2,
+    moveRight: false,
+    moveLeft: false,
+    moveUp: false,
+    moveDown: false
+  };
 
-  function drawGame() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillRect(x, y, 30, 30);
-    //draw player
+  var food = {
+    x: 300,
+    y: 300,
+    width: 10,
+    height: 10
+  };
+
+  function drawPlayer() {
+    ctx.fillStyle = "green";
+    ctx.fillRect(player.x, player.y, 30, 30);
+  }
+
+  function drawFood() {
+    food.x = Math.floor(Math.random() * canvas.width);
+    food.y = Math.floor(Math.random() * canvas.height);
+    ctx.fillStyle = "red";
+    ctx.fillRect(food.x, food.y, food.width, food.height);
+  }
+
+  function directionalInput() {
     document.onkeydown = function(event) {
       if (event.keyCode === 68) {
-        moveRight = true;
+        player.moveRight = true;
       }
       if (event.keyCode === 65) {
-        moveLeft = true;
+        player.moveLeft = true;
       }
       if (event.keyCode === 87) {
-        moveUp = true;
+        player.moveUp = true;
+      }
+      if (event.keyCode === 83) {
+        player.moveDown = true;
       }
     };
 
     document.onkeyup = function(event) {
       if (event.keyCode === 68) {
-        moveRight = false;
+        player.moveRight = false;
       }
       if (event.keyCode === 65) {
-        moveLeft = false;
+        player.moveLeft = false;
+      }
+      if (event.keyCode === 87) {
+        player.moveUp = false;
+      }
+      if (event.keyCode === 83) {
+        player.moveDown = false;
       }
     };
+  }
 
-    if (moveRight == true) {
-      x += stepX;
+  function movePlayer() {
+    if (player.moveRight == true) {
+      player.x += player.stepX;
     }
-    if (moveLeft == true) {
-      x -= stepX;
+    if (player.moveLeft == true) {
+      player.x -= player.stepX;
     }
-    if (moveUp == true) {
-      y += stepY;
+    if (player.moveUp == true) {
+      player.y -= player.stepY;
+    }
+    if (player.moveDown == true) {
+      player.y += player.stepY;
     }
   }
+
+  setInterval(drawGame, 16);
+  function drawGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
+
+    drawPlayer(); // draw player on current frame
+    directionalInput(); // watch for WASD directional input
+    movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
+  }
+
+  drawFood();
 </script>
