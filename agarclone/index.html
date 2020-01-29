@@ -1,0 +1,33 @@
+<canvas
+  id="ctx"
+  width="1200"
+  height="600"
+  style="border:1px solid #000000;"
+></canvas>
+
+<script>
+  var ctx = document.getElementById("ctx").getContext("2d");
+  var x = 200;
+  var y = 200;
+  var stepX = 10;
+  var stepY = 10;
+
+  var moveRight = false;
+
+  drawGame();
+
+  document.onkeydown = function(event) {
+    if (event.keyCode === 68) {
+      moveRight = true;
+    }
+  };
+
+  if (moveRight == true) {
+    x + stepX;
+  }
+  setInterval(drawGame, 100);
+
+  function drawGame() {
+    ctx.fillRect(x, y, 30, 30);
+  }
+</script>
