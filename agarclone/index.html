@@ -32,11 +32,10 @@
     ctx.fillRect(player.x, player.y, 30, 30);
   }
 
-  function drawFood() {
-    food.x = Math.floor(Math.random() * canvas.width);
-    food.y = Math.floor(Math.random() * canvas.height);
-    ctx.fillStyle = "red";
-    ctx.fillRect(food.x, food.y, food.width, food.height);
+  function randomFood() {
+    food.x = Math.floor(Math.random() * (canvas.width - 10));
+    food.y = Math.floor(Math.random() * (canvas.height - 10));
+    return food.x, food.y;
   }
 
   function directionalInput() {
@@ -89,11 +88,8 @@
   setInterval(drawGame, 16);
   function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
-
     drawPlayer(); // draw player on current frame
     directionalInput(); // watch for WASD directional input
     movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
   }
-
-  drawFood();
 </script>
