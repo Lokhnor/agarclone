@@ -32,11 +32,16 @@
     ctx.fillRect(player.x, player.y, 30, 30);
   }
 
-  function randomFood() {
-    food.x = Math.floor(Math.random() * (canvas.width - 10));
-    food.y = Math.floor(Math.random() * (canvas.height - 10));
-    return food.x, food.y;
+  let foodPellets = [];
+
+  function foodGenerator() {
+    food.x = Math.floor(Math.random() * canvas.width);
+    food.y = Math.floor(Math.random() * canvas.height);
+    foodPellets.push(food.x, food.y);
+    console.log(foodPellets);
   }
+
+  setInterval(foodGenerator, 1000);
 
   function directionalInput() {
     document.onkeydown = function(event) {
