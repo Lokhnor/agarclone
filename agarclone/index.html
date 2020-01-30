@@ -34,14 +34,20 @@
 
   let foodPellets = [];
 
-  function foodGenerator() {
+  function generateFood() {
     food.x = Math.floor(Math.random() * canvas.width);
     food.y = Math.floor(Math.random() * canvas.height);
-    foodPellets.push(food.x, food.y);
-    console.log(foodPellets);
+    foodPellets.push({ x: food.x, y: food.y });
   }
 
-  setInterval(foodGenerator, 1000);
+  function drawFood() {
+    for (let i = 0; i <= foodPellets.length; i++) {
+      ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
+      // console.log(foodPellets[i].x);
+    }
+  }
+
+  setInterval(generateFood, 1000);
 
   function directionalInput() {
     document.onkeydown = function(event) {
@@ -96,5 +102,6 @@
     drawPlayer(); // draw player on current frame
     directionalInput(); // watch for WASD directional input
     movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
+    drawFood(); // draw all foodPellets
   }
 </script>
