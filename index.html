@@ -44,7 +44,6 @@
     if (foodPellets.length < 100) {
       generateFood();
     }
-
     for (let i = 0; i < foodPellets.length; i++) {
       ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
     }
@@ -96,6 +95,14 @@
       player.y += player.stepY;
     }
   }
+
+  // check collision between player and food:
+  //
+  // get current ( player.x and player.y ), and ( foodPellets[i].x and foodPellets[i].y )
+  // calculate ( player.x - foodPellets[i].x )
+  // use Math.abs() to get absolute value
+  // the result of that will be the distance between player and foodPellets
+  // if "result <= collisionDistance", delete foodPellets[i]
 
   setInterval(drawGame, 16);
   function drawGame() {
