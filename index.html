@@ -41,7 +41,7 @@
   }
 
   function drawFood() {
-    if (foodPellets.length < 100) {
+    if (foodPellets.length < 5) {
       generateFood();
     }
     for (let i = 0; i < foodPellets.length; i++) {
@@ -96,20 +96,63 @@
     }
   }
 
-  // check collision between player and food:
-  //
-  // get current ( player.x and player.y ), and ( foodPellets[i].x and foodPellets[i].y )
-  // calculate ( player.x - foodPellets[i].x )
-  // use Math.abs() to get absolute value
-  // the result of that will be the distance between player and foodPellets
-  // if "result <= collisionDistance", delete foodPellets[i]
+  function foodCollision() {
+    let foodDistanceX = 0;
+    let foodDistanceY = 0;
+    for (let i = 0; i < foodPellets.length; i++) {
+      foodDistanceX = Math.abs(player.x - foodPellets[i].x);
+      foodDistanceY = Math.abs(player.y - foodPellets[i].y);
+      if (foodDistanceX <= 20 && foodDistanceY <= 20) {
+        foodPellets.pop();
+      }
+    }
+  }
 
-  setInterval(drawGame, 16);
+  setInterval(drawGame, 17);
   function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
     drawPlayer(); // draw player on current frame
     directionalInput(); // watch for WASD directional input
     movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
     drawFood(); // draw all foodPellets
+    foodCollision(); // monitors distance between player and foodPellets, deletes food on collision
   }
+  /* 
+  var enemyList = {};
+
+  Enemy = function(id, x, y, spdX, spdY, width, height) {
+    var enemy3 = {
+      x: x,
+      spdX: spdX,
+      y: y,
+      spdY: spdY,
+      name: "E",
+      id: id,
+      width: width,
+      height: height,
+      color: "red"
+    };
+    enemyList[id] = enemy3;
+  };
+
+  randomlyGenerateEnemy = function() {
+    //Math.random() returns a number between 0 and 1
+    var x = Math.random() * WIDTH;
+    var y = Math.random() * HEIGHT;
+    var height = 10 + Math.random() * 30; //between 10 and 40
+    var width = 10 + Math.random() * 30;
+    var id = Math.random();
+    var spdX = 5 + Math.random() * 5;
+    var spdY = 5 + Math.random() * 5;
+    Enemy(id, x, y, spdX, spdY, width, height);
+  };
+
+  for (var key2 in enemyList) {
+    var isColliding = testCollisionEntity(bulletList[key], enemyList[key2]);
+    if (isColliding) {
+      toRemove = true;
+      delete enemyList[key2];
+      break;
+    }
+  } */
 </script>
