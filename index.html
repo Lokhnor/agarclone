@@ -41,12 +41,14 @@
   }
 
   function drawFood() {
+    if (foodPellets.length < 100) {
+      generateFood();
+    }
+
     for (let i = 0; i < foodPellets.length; i++) {
       ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
     }
   }
-
-  setInterval(generateFood, 1000);
 
   function directionalInput() {
     document.onkeydown = function(event) {
