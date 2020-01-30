@@ -41,9 +41,8 @@
   }
 
   function drawFood() {
-    for (let i = 0; i <= foodPellets.length; i++) {
+    for (let i = 0; i < foodPellets.length; i++) {
       ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
-      // console.log(foodPellets[i].x);
     }
   }
 
