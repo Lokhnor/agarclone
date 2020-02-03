@@ -119,8 +119,8 @@
       distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
       if (distance <= player.width / 2) {
         delete foodPellets[i];
-        player.width += 5;
-        player.height += 5;
+        player.width += 1;
+        player.height += 1;
 
         food.x = Math.floor(Math.random() * canvas.width);
         food.y = Math.floor(Math.random() * canvas.height);
