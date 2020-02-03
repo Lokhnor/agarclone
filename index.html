@@ -12,8 +12,10 @@
   var player = {
     x: 200,
     y: 200,
-    stepX: 5,
-    stepY: 5,
+    width: 30,
+    height: 30,
+    stepX: 2,
+    stepY: 2,
     moveRight: false,
     moveLeft: false,
     moveUp: false,
@@ -29,11 +31,12 @@
 
   function drawPlayer() {
     ctx.fillStyle = "green";
-    ctx.fillRect(player.x, player.y, 30, 30);
+    ctx.fillRect(player.x, player.y, player.width, player.height);
   }
 
   let foodPellets = [];
-  for (let i = 0; i < 2; i++) {
+
+  for (let i = 0; i <= 200; i++) {
     generateFood();
   }
 
@@ -43,13 +46,10 @@
     foodPellets.push({ x: food.x, y: food.y });
   }
 
+  //setInterval(generateFood, 1000);
+
   function drawFood() {
     for (let i = 0; i < foodPellets.length; i++) {
-      if (!foodPellets[i]) {
-        food.x = Math.floor(Math.random() * canvas.width);
-        food.y = Math.floor(Math.random() * canvas.height);
-        foodPellets[i] = { x: food.x, y: food.y };
-      }
       ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
     }
   }
@@ -102,14 +102,29 @@
   }
 
   function foodCollision() {
-    let foodDistanceX = 0;
-    let foodDistanceY = 0;
+    let distanceX = 0;
+    let distanceY = 0;
+    let distance = 0;
+
+    let centerX = player.x + player.width / 2;
+    let centerY = player.y + player.height / 2;
 
     for (let i = 0; i < foodPellets.length; i++) {
-      foodDistanceX = Math.abs(player.x - foodPellets[i].x);
-      foodDistanceY = Math.abs(player.y - foodPellets[i].x);
-      if (foodDistanceX < 20 && foodDistanceY < 20) {
+      let cX = foodPellets[i].x + food.width / 2;
+      let cY = foodPellets[i].y + food.height / 2;
+
+      distanceX = Math.abs(centerX - cX);
+      distanceY = Math.abs(centerY - cY);
+
+      distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+      if (distance <= player.width / 2) {
         delete foodPellets[i];
+        player.width += 5;
+        player.height += 5;
+
+        food.x = Math.floor(Math.random() * canvas.width);
+        food.y = Math.floor(Math.random() * canvas.height);
+        foodPellets[i] = { x: food.x, y: food.y };
       }
     }
   }
