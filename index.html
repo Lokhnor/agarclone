@@ -104,6 +104,7 @@
       foodDistanceY = Math.abs(player.y - foodPellets[i].y);
       if (foodDistanceX <= 20 && foodDistanceY <= 20) {
         foodPellets.pop();
+        console.log(foodPellets);
       }
     }
   }
@@ -120,6 +121,7 @@
   // }
 
   setInterval(drawGame, 17);
+
   function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
     drawPlayer(); // draw player on current frame
