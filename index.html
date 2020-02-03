@@ -109,17 +109,18 @@
     }
   }
 
-  // function foodCollision() {
-  //   let foodDistanceX = 0;
-  //   let foodDistanceY = 0;
+  function foodCollision() {
+    let foodDistanceX = 0;
+    let foodDistanceY = 0;
 
-  //   foodPellets = foodPellets.filter(
-  //     pellet =>
-  //       Math.abs(player.x - foodPellets.x) <= 20 &&
-  //       Math.abs(player.y - foodPellets.y) <= 20
-  //   );
-  // }
-
+    foodPellets = foodPellets.filter(filterPellets);
+    function filterPellets() {
+      foodDistanceX = Math.abs(player.x - foodPellets.x);
+      foodDistanceY = Math.abs(player.y - foodPellets.y);
+      return foodDistanceX <= 20 && foodDistanceY <= 20;
+    }
+    console.log(foodPellets);
+  }
   setInterval(drawGame, 17);
 
   function drawGame() {
