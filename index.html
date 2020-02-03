@@ -96,18 +96,18 @@
     }
   }
 
-  function foodCollision() {
-    let foodDistanceX = 0;
-    let foodDistanceY = 0;
-    for (let i = 0; i < foodPellets.length; i++) {
-      foodDistanceX = Math.abs(player.x - foodPellets[i].x);
-      foodDistanceY = Math.abs(player.y - foodPellets[i].y);
-      if (foodDistanceX <= 20 && foodDistanceY <= 20) {
-        foodPellets.pop();
-        console.log(foodPellets);
-      }
-    }
-  }
+  // function foodCollision() {
+  //   let foodDistanceX = 0;
+  //   let foodDistanceY = 0;
+  //   for (let i = 0; i < foodPellets.length; i++) {
+  //     foodDistanceX = Math.abs(player.x - foodPellets[i].x);
+  //     foodDistanceY = Math.abs(player.y - foodPellets[i].y);
+  //     if (foodDistanceX <= 20 && foodDistanceY <= 20) {
+  //       foodPellets.pop();
+  //       console.log(foodPellets);
+  //     }
+  //   }
+  // }
 
   function foodCollision() {
     let foodDistanceX = 0;
@@ -121,6 +121,7 @@
     }
     console.log(foodPellets);
   }
+
   setInterval(drawGame, 17);
 
   function drawGame() {
