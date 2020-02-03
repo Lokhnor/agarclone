@@ -12,8 +12,8 @@
   var player = {
     x: 200,
     y: 200,
-    stepX: 2,
-    stepY: 2,
+    stepX: 5,
+    stepY: 5,
     moveRight: false,
     moveLeft: false,
     moveUp: false,
@@ -33,6 +33,9 @@
   }
 
   let foodPellets = [];
+  for (let i = 0; i < 2; i++) {
+    generateFood();
+  }
 
   function generateFood() {
     food.x = Math.floor(Math.random() * canvas.width);
@@ -41,10 +44,12 @@
   }
 
   function drawFood() {
-    if (foodPellets.length < 5) {
-      generateFood();
-    }
     for (let i = 0; i < foodPellets.length; i++) {
+      if (!foodPellets[i]) {
+        food.x = Math.floor(Math.random() * canvas.width);
+        food.y = Math.floor(Math.random() * canvas.height);
+        foodPellets[i] = { x: food.x, y: food.y };
+      }
       ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
     }
   }
@@ -96,30 +101,17 @@
     }
   }
 
-  // function foodCollision() {
-  //   let foodDistanceX = 0;
-  //   let foodDistanceY = 0;
-  //   for (let i = 0; i < foodPellets.length; i++) {
-  //     foodDistanceX = Math.abs(player.x - foodPellets[i].x);
-  //     foodDistanceY = Math.abs(player.y - foodPellets[i].y);
-  //     if (foodDistanceX <= 20 && foodDistanceY <= 20) {
-  //       foodPellets.pop();
-  //       console.log(foodPellets);
-  //     }
-  //   }
-  // }
-
   function foodCollision() {
     let foodDistanceX = 0;
     let foodDistanceY = 0;
 
-    foodPellets = foodPellets.filter(filterPellets);
-    function filterPellets() {
-      foodDistanceX = Math.abs(player.x - foodPellets.x);
-      foodDistanceY = Math.abs(player.y - foodPellets.y);
-      return foodDistanceX <= 20 && foodDistanceY <= 20;
+    for (let i = 0; i < foodPellets.length; i++) {
+      foodDistanceX = Math.abs(player.x - foodPellets[i].x);
+      foodDistanceY = Math.abs(player.y - foodPellets[i].x);
+      if (foodDistanceX < 20 && foodDistanceY < 20) {
+        delete foodPellets[i];
+      }
     }
-    console.log(foodPellets);
   }
 
   setInterval(drawGame, 17);
