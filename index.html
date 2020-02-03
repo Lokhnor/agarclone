@@ -12,6 +12,7 @@
   var player = {
     x: 200,
     y: 200,
+    r: 30,
     width: 30,
     height: 30,
     stepX: 2,
@@ -30,8 +31,15 @@
   };
 
   function drawPlayer() {
-    ctx.fillStyle = "green";
-    ctx.fillRect(player.x, player.y, player.width, player.height);
+    // ball
+    ctx.fillStyle = "#77d141";
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, player.r, 0, 2 * Math.PI);
+    ctx.fill();
+    // border
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, player.r, 5, 10 * Math.PI);
+    ctx.stroke();
   }
 
   let foodPellets = [];
@@ -50,6 +58,7 @@
 
   function drawFood() {
     for (let i = 0; i < foodPellets.length; i++) {
+      ctx.fillStyle = "#d14141";
       ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
     }
   }
@@ -106,8 +115,8 @@
     let distanceY = 0;
     let distance = 0;
 
-    let centerX = player.x + player.width / 2;
-    let centerY = player.y + player.height / 2;
+    let centerX = player.x;
+    let centerY = player.y;
 
     for (let i = 0; i < foodPellets.length; i++) {
       let cX = foodPellets[i].x + food.width / 2;
@@ -117,10 +126,9 @@
       distanceY = Math.abs(centerY - cY);
 
       distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-      if (distance <= player.width / 2) {
+      if (distance <= player.r + 5) {
         delete foodPellets[i];
-        player.width += 1;
-        player.height += 1;
+        player.r = player.r * 1.005;
 
         food.x = Math.floor(Math.random() * canvas.width);
         food.y = Math.floor(Math.random() * canvas.height);
