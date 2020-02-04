@@ -66,7 +66,8 @@
   function generateFood() {
     food.x = Math.floor(Math.random() * canvas.width);
     food.y = Math.floor(Math.random() * canvas.height);
-    foodPellets.push({ x: food.x, y: food.y, r: food.r });
+    randomColor();
+    foodPellets.push({ x: food.x, y: food.y, r: food.r, color: food.color });
   }
 
   //setInterval(generateFood, 1000);
