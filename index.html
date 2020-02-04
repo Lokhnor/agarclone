@@ -8,7 +8,9 @@
 <script>
   var ctx = document.getElementById("ctx").getContext("2d");
   var canvas = document.getElementById("ctx");
-
+  const settings = {
+    growthRate: 1.03
+  };
   var player = {
     x: 200,
     y: 200,
@@ -128,7 +130,7 @@
       distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
       if (distance <= player.r + 5) {
         delete foodPellets[i];
-        player.r = player.r * 1.005;
+        player.r = player.r * settings.growthRate;
 
         food.x = Math.floor(Math.random() * canvas.width);
         food.y = Math.floor(Math.random() * canvas.height);
