@@ -29,21 +29,10 @@
     x: 300,
     y: 300,
     r: 6,
-    color: randomColor(),
+    color: "yellow",
     width: 10,
     height: 10
   };
-
-  function randomColor() {
-    let random = Math.random();
-    if (random > 0.66) {
-      return "red";
-    } else if (random > 0.33) {
-      return "green";
-    } else {
-      return "blue";
-    }
-  }
 
   function drawPlayer() {
     // ball
@@ -66,11 +55,8 @@
   function generateFood() {
     food.x = Math.floor(Math.random() * canvas.width);
     food.y = Math.floor(Math.random() * canvas.height);
-    randomColor();
     foodPellets.push({ x: food.x, y: food.y, r: food.r, color: food.color });
   }
-
-  //setInterval(generateFood, 1000);
 
   function drawFood() {
     for (let i = 0; i < foodPellets.length; i++) {
@@ -78,7 +64,6 @@
       ctx.beginPath();
       ctx.arc(foodPellets[i].x, foodPellets[i].y, food.r, 0, 2 * Math.PI);
       ctx.fill();
-      //ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
     }
   }
 
@@ -135,12 +120,6 @@
     let distance = 0;
 
     for (let i = 0; i < foodPellets.length; i++) {
-      // let cX = foodPellets[i].x + food.width / 2;
-      // let cY = foodPellets[i].y + food.height / 2;
-
-      // distanceX = Math.abs(centerX - cX);
-      // distanceY = Math.abs(centerY - cY);
-
       distanceX = player.x - foodPellets[i].x;
       distanceY = player.y - foodPellets[i].y;
 
@@ -152,7 +131,7 @@
 
         food.x = Math.floor(Math.random() * canvas.width);
         food.y = Math.floor(Math.random() * canvas.height);
-        foodPellets[i] = { x: food.x, y: food.y };
+        foodPellets[i] = { x: food.x, y: food.y, r: food.r, color: food.color };
       }
     }
   }
@@ -161,6 +140,8 @@
 
   function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
+    ctx.fillStyle = "black"; // background color
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawPlayer(); // draw player on current frame
     directionalInput(); // watch for WASD directional input
     movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
