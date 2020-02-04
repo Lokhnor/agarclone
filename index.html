@@ -29,12 +29,21 @@
     x: 300,
     y: 300,
     r: 6,
-    color: "#d14141",
+    color: randomColor(),
     width: 10,
     height: 10
   };
 
-  function randomColor() {}
+  function randomColor() {
+    let random = Math.random();
+    if (random > 0.66) {
+      return "red";
+    } else if (random > 0.33) {
+      return "green";
+    } else {
+      return "blue";
+    }
+  }
 
   function drawPlayer() {
     // ball
@@ -64,7 +73,7 @@
 
   function drawFood() {
     for (let i = 0; i < foodPellets.length; i++) {
-      ctx.fillStyle = "#d14141";
+      ctx.fillStyle = food.color;
       ctx.beginPath();
       ctx.arc(foodPellets[i].x, foodPellets[i].y, food.r, 0, 2 * Math.PI);
       ctx.fill();
