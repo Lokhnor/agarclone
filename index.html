@@ -28,9 +28,13 @@
   var food = {
     x: 300,
     y: 300,
+    r: 6,
+    color: "#d14141",
     width: 10,
     height: 10
   };
+
+  function randomColor() {}
 
   function drawPlayer() {
     // ball
@@ -53,7 +57,7 @@
   function generateFood() {
     food.x = Math.floor(Math.random() * canvas.width);
     food.y = Math.floor(Math.random() * canvas.height);
-    foodPellets.push({ x: food.x, y: food.y });
+    foodPellets.push({ x: food.x, y: food.y, r: food.r });
   }
 
   //setInterval(generateFood, 1000);
@@ -61,7 +65,10 @@
   function drawFood() {
     for (let i = 0; i < foodPellets.length; i++) {
       ctx.fillStyle = "#d14141";
-      ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
+      ctx.beginPath();
+      ctx.arc(foodPellets[i].x, foodPellets[i].y, food.r, 0, 2 * Math.PI);
+      ctx.fill();
+      //ctx.fillRect(foodPellets[i].x, foodPellets[i].y, food.width, food.height);
     }
   }
 
@@ -117,17 +124,18 @@
     let distanceY = 0;
     let distance = 0;
 
-    let centerX = player.x;
-    let centerY = player.y;
-
     for (let i = 0; i < foodPellets.length; i++) {
-      let cX = foodPellets[i].x + food.width / 2;
-      let cY = foodPellets[i].y + food.height / 2;
+      // let cX = foodPellets[i].x + food.width / 2;
+      // let cY = foodPellets[i].y + food.height / 2;
 
-      distanceX = Math.abs(centerX - cX);
-      distanceY = Math.abs(centerY - cY);
+      // distanceX = Math.abs(centerX - cX);
+      // distanceY = Math.abs(centerY - cY);
+
+      distanceX = player.x - foodPellets[i].x;
+      distanceY = player.y - foodPellets[i].y;
 
       distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
       if (distance <= player.r + 5) {
         delete foodPellets[i];
         player.r = player.r * settings.growthRate;
