@@ -49,13 +49,23 @@
 
   let foodPellets = [];
 
-  for (let i = 0; i <= 200; i++) {
+  for (let i = 0; i <= 1000; i++) {
     generateFood();
   }
 
   function generateFood() {
     food.x = Math.floor(Math.random() * canvas.width);
     food.y = Math.floor(Math.random() * canvas.height);
+
+    if (
+      food.x >= player.x - player.r &&
+      food.x <= player.x + player.r &&
+      food.y >= player.y - player.r &&
+      food.y <= player.y + player.r
+    ) {
+      return;
+    }
+
     food.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
     foodPellets.push({ x: food.x, y: food.y, r: food.r, color: food.color });
   }
@@ -129,11 +139,32 @@
 
       if (distance <= player.r + 5) {
         delete foodPellets[i];
-        player.r += player.r * settings.growthRate;
+        regenPellet();
 
-        food.x = Math.floor(Math.random() * canvas.width);
-        food.y = Math.floor(Math.random() * canvas.height);
-        foodPellets[i] = { x: food.x, y: food.y, r: food.r, color: food.color };
+        function regenPellet() {
+          player.r += player.r * settings.growthRate;
+
+          food.x = Math.floor(Math.random() * canvas.width);
+          food.y = Math.floor(Math.random() * canvas.height);
+
+          if (
+            food.x >= player.x - player.r &&
+            food.x <= player.x + player.r &&
+            food.y >= player.y - player.r &&
+            food.y <= player.y + player.r
+          ) {
+            regenPellet();
+            return;
+          }
+
+          food.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+          foodPellets[i] = {
+            x: food.x,
+            y: food.y,
+            r: food.r,
+            color: food.color
+          };
+        }
       }
     }
   }
