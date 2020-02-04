@@ -9,12 +9,13 @@
   var ctx = document.getElementById("ctx").getContext("2d");
   var canvas = document.getElementById("ctx");
   const settings = {
-    growthRate: 1.03
+    growthRate: 0.001
   };
   var player = {
     x: 200,
     y: 200,
     r: 30,
+    color: "#" + Math.floor(Math.random() * 16777215).toString(16),
     width: 30,
     height: 30,
     stepX: 2,
@@ -36,7 +37,7 @@
 
   function drawPlayer() {
     // ball
-    ctx.fillStyle = "#77d141";
+    ctx.fillStyle = player.color;
     ctx.beginPath();
     ctx.arc(player.x, player.y, player.r, 0, 2 * Math.PI);
     ctx.fill();
@@ -55,12 +56,13 @@
   function generateFood() {
     food.x = Math.floor(Math.random() * canvas.width);
     food.y = Math.floor(Math.random() * canvas.height);
+    food.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
     foodPellets.push({ x: food.x, y: food.y, r: food.r, color: food.color });
   }
 
   function drawFood() {
     for (let i = 0; i < foodPellets.length; i++) {
-      ctx.fillStyle = food.color;
+      ctx.fillStyle = foodPellets[i].color;
       ctx.beginPath();
       ctx.arc(foodPellets[i].x, foodPellets[i].y, food.r, 0, 2 * Math.PI);
       ctx.fill();
@@ -127,7 +129,7 @@
 
       if (distance <= player.r + 5) {
         delete foodPellets[i];
-        player.r = player.r * settings.growthRate;
+        player.r += player.r * settings.growthRate;
 
         food.x = Math.floor(Math.random() * canvas.width);
         food.y = Math.floor(Math.random() * canvas.height);
