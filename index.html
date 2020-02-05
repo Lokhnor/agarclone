@@ -8,6 +8,7 @@
 <script>
   var ctx = document.getElementById("ctx").getContext("2d");
   var canvas = document.getElementById("ctx");
+  ctx.font = "30px Arial";
 
   const settings = {
     growthRate: 0.001
@@ -183,6 +184,7 @@
     movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
     drawFood(); // draw all foodPellets
     foodCollision(); // monitors distance between player and foodPellets, deletes food on collision
-    ctx.fillText(`Leaderboard: You ${leaderboard}`);
+    ctx.fillStyle = "black";
+    ctx.fillText("hello");
   }
 </script>
