@@ -1,20 +1,21 @@
 <canvas
   id="ctx"
-  width="1200"
-  height="600"
-  style="border:1px solid #000000;"
+  width="1920"
+  height="1080"
+  style="border:1px solid #e6f3fa;"
 ></canvas>
 
 <script>
   var ctx = document.getElementById("ctx").getContext("2d");
   var canvas = document.getElementById("ctx");
+
   const settings = {
     growthRate: 0.001
   };
   var player = {
     x: 200,
     y: 200,
-    r: 30,
+    r: 20,
     color: "#" + Math.floor(Math.random() * 16777215).toString(16),
     width: 30,
     height: 30,
@@ -171,14 +172,17 @@
 
   setInterval(drawGame, 17);
 
+  let leaderboard = 0;
+
   function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
-    ctx.fillStyle = "black"; // background color
+    ctx.fillStyle = "#e6f3fa"; // background color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawPlayer(); // draw player on current frame
     directionalInput(); // watch for WASD directional input
     movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
     drawFood(); // draw all foodPellets
     foodCollision(); // monitors distance between player and foodPellets, deletes food on collision
+    ctx.fillText(`Leaderboard: You ${leaderboard}`);
   }
 </script>
