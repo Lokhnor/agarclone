@@ -1,7 +1,7 @@
 <canvas
   id="ctx"
-  width="1920"
-  height="1080"
+  width="2920"
+  height="2080"
   style="border:1px solid #e6f3fa;"
 ></canvas>
 
@@ -179,7 +179,12 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
     ctx.fillStyle = "#e6f3fa"; // background color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.save();
     drawPlayer(); // draw player on current frame
+    ctx.translate(player.x - canvas.width / 2, player.y - canvas.height / 2);
+    ctx.restore();
+
     directionalInput(); // watch for WASD directional input
     movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
     drawFood(); // draw all foodPellets
