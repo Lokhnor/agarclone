@@ -11,7 +11,7 @@
   ctx.font = "30px Arial";
 
   const settings = {
-    growthRate: 0.001
+    growthRate: 0.02
   };
   var player = {
     x: 200,
@@ -181,8 +181,8 @@
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.save();
+    //ctx.translate(player.x - canvas.width / 2, player.y - canvas.height / 2);
     drawPlayer(); // draw player on current frame
-    ctx.translate(player.x - canvas.width / 2, player.y - canvas.height / 2);
     ctx.restore();
 
     directionalInput(); // watch for WASD directional input
