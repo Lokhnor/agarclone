@@ -4,6 +4,7 @@
   height="2080"
   style="border:1px solid #e6f3fa;"
 ></canvas>
+
 <body style="overflow: hidden"></body>
 
 <script>
@@ -71,7 +72,13 @@
     }
 
     food.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    foodPellets.push({ x: food.x, y: food.y, r: food.r, color: food.color, value: food.value });
+    foodPellets.push({
+      x: food.x,
+      y: food.y,
+      r: food.r,
+      color: food.color,
+      value: food.value
+    });
   }
 
   function drawFood() {
