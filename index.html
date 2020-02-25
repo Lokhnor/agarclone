@@ -147,7 +147,7 @@
         regenPellet();
 
         function regenPellet() {
-          player.r += player.r * settings.growthRate;
+          player.r += 0.1;
 
           food.x = Math.floor(Math.random() * canvas.width);
           food.y = Math.floor(Math.random() * canvas.height);
