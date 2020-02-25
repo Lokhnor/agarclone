@@ -4,6 +4,7 @@
   height="2080"
   style="border:1px solid #e6f3fa;"
 ></canvas>
+<body style="overflow: hidden"></body>
 
 <script>
   var ctx = document.getElementById("ctx").getContext("2d");
@@ -11,13 +12,13 @@
   ctx.font = "30px Arial";
 
   const settings = {
-    growthRate: 0.02
+    growthRate: 0.01
   };
   var player = {
     x: 200,
     y: 200,
     r: 20,
-    color: "#" + Math.floor(Math.random() * 16777215).toString(16),
+    color: "red",
     width: 30,
     height: 30,
     stepX: 2,
@@ -142,6 +143,7 @@
       if (distance <= player.r + 5) {
         delete foodPellets[i];
         leaderboard++;
+        player.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
         regenPellet();
 
         function regenPellet() {
@@ -174,12 +176,19 @@
 
   setInterval(drawGame, 17);
 
-  let leaderboard = 0;
+  let leaderboard = 1;
+  let bgColor = "#1a1a1a";
+
+  let i = 0;
 
   function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
-    ctx.fillStyle = "#e6f3fa"; // background color
+    ctx.fillStyle = bgColor; // background color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (leaderboard % 300 == 0) {
+      settings.growthRate = settings.growthRate / 2;
+    }
 
     ctx.save();
     //ctx.translate(player.x - canvas.width / 2, player.y - canvas.height / 2);
@@ -191,7 +200,7 @@
     movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
     drawFood(); // draw all foodPellets
     foodCollision(); // monitors distance between player and foodPellets, deletes food on collision
-    ctx.fillStyle = "black";
-    ctx.fillText(`${leaderboard}`, player.x - player.r, player.y + player.r);
+    ctx.fillStyle = "white";
+    ctx.fillText(`${leaderboard}`, player.x - 10, player.y + 10);
   }
 </script>
