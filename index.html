@@ -35,7 +35,8 @@
     r: 6,
     color: "yellow",
     width: 10,
-    height: 10
+    height: 10,
+    value = 10
   };
 
   function drawPlayer() {
@@ -70,7 +71,7 @@
     }
 
     food.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    foodPellets.push({ x: food.x, y: food.y, r: food.r, color: food.color });
+    foodPellets.push({ x: food.x, y: food.y, r: food.r, color: food.color, value: food.value });
   }
 
   function drawFood() {
@@ -144,10 +145,10 @@
         delete foodPellets[i];
         leaderboard++;
         player.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
-        regenPellet();
+        regenPellet(i);
 
-        function regenPellet() {
-          player.r += 0.1;
+        function regenPellet(pellet) {
+          player.r += pellet.value*growthRate;
 
           food.x = Math.floor(Math.random() * canvas.width);
           food.y = Math.floor(Math.random() * canvas.height);
@@ -158,7 +159,7 @@
             food.y >= player.y - player.r &&
             food.y <= player.y + player.r
           ) {
-            regenPellet();
+            regenPellet(i);
             return;
           }
 
