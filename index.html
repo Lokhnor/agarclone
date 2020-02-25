@@ -141,6 +141,7 @@
 
       if (distance <= player.r + 5) {
         delete foodPellets[i];
+        leaderboard++;
         regenPellet();
 
         function regenPellet() {
@@ -191,6 +192,6 @@
     drawFood(); // draw all foodPellets
     foodCollision(); // monitors distance between player and foodPellets, deletes food on collision
     ctx.fillStyle = "black";
-    ctx.fillText("hello");
+    ctx.fillText(`${leaderboard}`, player.x - player.r, player.y + player.r);
   }
 </script>
