@@ -183,6 +183,7 @@
     ctx.save();
     //ctx.translate(player.x - canvas.width / 2, player.y - canvas.height / 2);
     drawPlayer(); // draw player on current frame
+    window.scrollTo(player.x - 760, player.y - 360);
     ctx.restore();
 
     directionalInput(); // watch for WASD directional input
