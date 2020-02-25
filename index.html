@@ -36,7 +36,7 @@
     color: "yellow",
     width: 10,
     height: 10,
-    value = 10
+    value: 10
   };
 
   function drawPlayer() {
@@ -71,7 +71,13 @@
     }
 
     food.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    foodPellets.push({ x: food.x, y: food.y, r: food.r, color: food.color, value: food.value });
+    foodPellets.push({
+      x: food.x,
+      y: food.y,
+      r: food.r,
+      color: food.color,
+      value: food.value
+    });
   }
 
   function drawFood() {
@@ -148,7 +154,7 @@
         regenPellet(i);
 
         function regenPellet(pellet) {
-          player.r += pellet.value*growthRate;
+          player.r += pellet.value * growthRate;
 
           food.x = Math.floor(Math.random() * canvas.width);
           food.y = Math.floor(Math.random() * canvas.height);
