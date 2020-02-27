@@ -15,8 +15,24 @@
   const settings = {
     growthRate: 0.01
   };
+
   var player = {
     x: 200,
+    y: 200,
+    r: 20,
+    color: "red",
+    width: 30,
+    height: 30,
+    stepX: 2,
+    stepY: 2,
+    moveRight: false,
+    moveLeft: false,
+    moveUp: false,
+    moveDown: false
+  };
+
+  var player2 = {
+    x: 400,
     y: 200,
     r: 20,
     color: "red",
@@ -40,15 +56,15 @@
     value: 10
   };
 
-  function drawPlayer() {
+  function drawPlayer({ color, x, y, r }) {
     // ball
-    ctx.fillStyle = player.color;
+    ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(player.x, player.y, player.r, 0, 2 * Math.PI);
+    ctx.arc(x, y, r, 0, 2 * Math.PI);
     ctx.fill();
     // border
     ctx.beginPath();
-    ctx.arc(player.x, player.y, player.r, 5, 10 * Math.PI);
+    ctx.arc(x, y, r, 5, 10 * Math.PI);
     ctx.stroke();
   }
 
@@ -200,7 +216,8 @@
 
     ctx.save();
     //ctx.translate(player.x - canvas.width / 2, player.y - canvas.height / 2);
-    drawPlayer(); // draw player on current frame
+    drawPlayer(player); // draw player on current frame
+    drawPlayer(player2);
     window.scrollTo(player.x - 760, player.y - 360);
     ctx.restore();
 
@@ -211,4 +228,6 @@
     ctx.fillStyle = "white";
     ctx.fillText(`${leaderboard}`, player.x - 10, player.y + 10);
   }
+  //   var player = { x, y, r, color, width, height, stepX, stepY, moveRight, moveLeft,
+  // moveUp, moveDown };
 </script>
