@@ -12,23 +12,8 @@ const settings = {
   growthRate: 0.01
 };
 
-class Player {
-  constructor() {
-    (this.x = 200),
-      (this.y = 200),
-      (this.r = 20),
-      (this.color = "red"),
-      (this.width = 30),
-      (this.height = 30),
-      (this.stepX = 2),
-      (this.stepY = 2),
-      (this.moveRight = false),
-      (this.moveLeft = false),
-      (this.moveUp = false),
-      (this.moveDown = false);
-  }
-}
 let player = new Player();
+let player2 = new Player();
 
 class Food {
   constructor() {
@@ -93,7 +78,7 @@ function drawFood() {
   }
 }
 
-function directionalInput() {
+function directionalInput(player) {
   document.onkeydown = function(event) {
     if (event.keyCode === 68) {
       player.moveRight = true;
@@ -203,16 +188,26 @@ function drawGame() {
 
   ctx.save();
   //ctx.translate(player.x - canvas.width / 2, player.y - canvas.height / 2);
-  drawPlayer(player); // draw player on current frame
+  drawPlayer(player);
   window.scrollTo(player.x - 760, player.y - 360);
   ctx.restore();
 
-  directionalInput(); // watch for WASD directional input
+  directionalInput(player); // watch for WASD directional input
   movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
   drawFood(); // draw all foodPellets
   foodCollision(); // monitors distance between player and foodPellets, deletes food on collision
   ctx.fillStyle = "white";
   ctx.fillText(`${leaderboard}`, player.x - 10, player.y + 10);
 }
-//   var player = { x, y, r, color, width, height, stepX, stepY, moveRight, moveLeft,
-// moveUp, moveDown };
+// x,
+// y,
+// r,
+// color,
+// width,
+// height,
+// stepX,
+// stepY,
+// moveRight,
+// moveLeft,
+// moveUp,
+// moveDown
