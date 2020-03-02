@@ -12,7 +12,8 @@ class Player {
     this.moveLeft = false;
     this.moveUp = false;
     this.moveDown = false;
-    this.score = 0;
+    this.score = 1;
+    this.growthRate = 0.4;
   }
   move() {
     if (this.moveRight == true) {
@@ -38,5 +39,14 @@ class Player {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 5, 10 * Math.PI);
     ctx.stroke();
+
+    ctx.fillStyle = "white";
+    ctx.fillText(`${this.score}`, this.x - 10, this.y + 10);
+  }
+  growthControl() {
+    if (this.score % 200 == 0) {
+      this.growthRate = this.growthRate / 2;
+    }
+    return;
   }
 }

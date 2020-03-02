@@ -1,7 +1,3 @@
-// make these functions reusable by other entities:
-
-// foodCollision();
-
 var ctx = document.getElementById("ctx").getContext("2d");
 var canvas = document.getElementById("ctx");
 ctx.font = "30px Arial";
@@ -11,6 +7,7 @@ const settings = {
 };
 // creating Player instances
 let player = new Player();
+player.color = "blue";
 let player2 = new Player();
 // creating Food instances
 let food = new Food();
@@ -67,11 +64,10 @@ function foodCollision(player) {
     if (distance <= player.r + 5) {
       delete foodPellets[i];
       player.score++;
-      player.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       regenPellet(i);
 
       function regenPellet(pellet) {
-        player.r += settings.growthRate;
+        player.r += player.growthRate;
 
         food.x = Math.floor(Math.random() * canvas.width);
         food.y = Math.floor(Math.random() * canvas.height);
@@ -110,29 +106,20 @@ function drawGame() {
   ctx.fillStyle = bgColor; // background color
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  function points(player) {
-    if (player.score % 200 == 0) {
-      settings.growthRate = settings.growthRate / 2;
-    }
-  }
-
-  ctx.save();
   player.drawPlayer();
   player2.drawPlayer();
-  window.scrollTo(player.x - 760, player.y - 360);
-  ctx.restore();
 
   player.move();
   player2.move();
 
+  player.growthControl();
+  player2.growthControl();
+
+  window.scrollTo(player.x - 760, player.y - 360);
+
   drawFood(); // draw all foodPellets
   foodCollision(player); // monitors distance between player and foodPellets, deletes food on collision
   foodCollision(player2);
-  ctx.fillStyle = "white";
-  ctx.fillText(`${leaderboard}`, player.x - 10, player.y + 10);
-
-  ctx.fillStyle = "white";
-  ctx.fillText(`${player2.score}`, player2.x - 10, player2.y + 10);
 
   document.onkeydown = function(event) {
     if (event.keyCode === 68) {
@@ -190,15 +177,3 @@ function drawGame() {
     }
   };
 }
-// x,
-// y,
-// r,
-// color,
-// width,
-// height,
-// stepX,
-// stepY,
-// moveRight,
-// moveLeft,
-// moveUp,
-// moveDown
