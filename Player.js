@@ -12,6 +12,7 @@ class Player {
     this.moveLeft = false;
     this.moveUp = false;
     this.moveDown = false;
+    this.score = 0;
   }
   move() {
     if (this.moveRight == true) {

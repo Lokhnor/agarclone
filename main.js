@@ -9,21 +9,10 @@ ctx.font = "30px Arial";
 const settings = {
   growthRate: 0.4
 };
-
+// creating Player instances
 let player = new Player();
 let player2 = new Player();
-
-class Food {
-  constructor() {
-    this.x = 300;
-    this.y = 300;
-    this.r = 6;
-    this.color = "yellow";
-    this.width = 10;
-    this.height = 10;
-    this.value = 10;
-  }
-}
+// creating Food instances
 let food = new Food();
 
 let foodPellets = [];
@@ -64,7 +53,7 @@ function drawFood() {
   }
 }
 
-function foodCollision() {
+function foodCollision(player) {
   let distanceX = 0;
   let distanceY = 0;
   let distance = 0;
@@ -77,7 +66,7 @@ function foodCollision() {
 
     if (distance <= player.r + 5) {
       delete foodPellets[i];
-      leaderboard++;
+      player.score++;
       player.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       regenPellet(i);
 
@@ -121,8 +110,10 @@ function drawGame() {
   ctx.fillStyle = bgColor; // background color
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  if (leaderboard % 200 == 0) {
-    settings.growthRate = settings.growthRate / 2;
+  function points(player) {
+    if (player.score % 200 == 0) {
+      settings.growthRate = settings.growthRate / 2;
+    }
   }
 
   ctx.save();
@@ -135,9 +126,13 @@ function drawGame() {
   player2.move();
 
   drawFood(); // draw all foodPellets
-  foodCollision(); // monitors distance between player and foodPellets, deletes food on collision
+  foodCollision(player); // monitors distance between player and foodPellets, deletes food on collision
+  foodCollision(player2);
   ctx.fillStyle = "white";
   ctx.fillText(`${leaderboard}`, player.x - 10, player.y + 10);
+
+  ctx.fillStyle = "white";
+  ctx.fillText(`${player2.score}`, player2.x - 10, player2.y + 10);
 
   document.onkeydown = function(event) {
     if (event.keyCode === 68) {
