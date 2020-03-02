@@ -9,7 +9,7 @@ var canvas = document.getElementById("ctx");
 ctx.font = "30px Arial";
 
 const settings = {
-  growthRate: 0.01
+  growthRate: 0.4
 };
 
 let player = new Player();
@@ -78,39 +78,7 @@ function drawFood() {
   }
 }
 
-function directionalInput(player) {
-  document.onkeydown = function(event) {
-    if (event.keyCode === 68) {
-      player.moveRight = true;
-    }
-    if (event.keyCode === 65) {
-      player.moveLeft = true;
-    }
-    if (event.keyCode === 87) {
-      player.moveUp = true;
-    }
-    if (event.keyCode === 83) {
-      player.moveDown = true;
-    }
-  };
-
-  document.onkeyup = function(event) {
-    if (event.keyCode === 68) {
-      player.moveRight = false;
-    }
-    if (event.keyCode === 65) {
-      player.moveLeft = false;
-    }
-    if (event.keyCode === 87) {
-      player.moveUp = false;
-    }
-    if (event.keyCode === 83) {
-      player.moveDown = false;
-    }
-  };
-}
-
-function movePlayer() {
+function movePlayer(player) {
   if (player.moveRight == true) {
     player.x += player.stepX;
   }
@@ -143,7 +111,7 @@ function foodCollision() {
       regenPellet(i);
 
       function regenPellet(pellet) {
-        player.r += 0.2;
+        player.r += settings.growthRate;
 
         food.x = Math.floor(Math.random() * canvas.width);
         food.y = Math.floor(Math.random() * canvas.height);
@@ -189,15 +157,60 @@ function drawGame() {
   ctx.save();
   //ctx.translate(player.x - canvas.width / 2, player.y - canvas.height / 2);
   drawPlayer(player);
+  drawPlayer(player2);
   window.scrollTo(player.x - 760, player.y - 360);
   ctx.restore();
 
-  directionalInput(player); // watch for WASD directional input
-  movePlayer(); // change player.x and player.y to move accordingly, in increments of "step"
+  movePlayer(player);
+  movePlayer(player2);
+
   drawFood(); // draw all foodPellets
   foodCollision(); // monitors distance between player and foodPellets, deletes food on collision
   ctx.fillStyle = "white";
   ctx.fillText(`${leaderboard}`, player.x - 10, player.y + 10);
+
+  document.onkeydown = function(event) {
+    if (event.keyCode === 68) {
+      player.moveRight = true;
+    }
+    if (event.keyCode === 65) {
+      player.moveLeft = true;
+    }
+    if (event.keyCode === 87) {
+      player.moveUp = true;
+    }
+    if (event.keyCode === 83) {
+      player.moveDown = true;
+    }
+    //player 2
+    if (event.keyCode === 39) {
+      player2.moveRight = true;
+    }
+    if (event.keyCode === 37) {
+      player2.moveLeft = true;
+    }
+    if (event.keyCode === 38) {
+      player2.moveUp = true;
+    }
+    if (event.keyCode === 40) {
+      player2.moveDown = true;
+    }
+  };
+
+  document.onkeyup = function(event) {
+    if (event.keyCode === 68) {
+      player.moveRight = false;
+    }
+    if (event.keyCode === 65) {
+      player.moveLeft = false;
+    }
+    if (event.keyCode === 87) {
+      player.moveUp = false;
+    }
+    if (event.keyCode === 83) {
+      player.moveDown = false;
+    }
+  };
 }
 // x,
 // y,
