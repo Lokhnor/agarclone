@@ -27,4 +27,15 @@ class Player {
       this.y += this.stepY;
     }
   }
+  drawPlayer() {
+    // ball
+    ctx.fillStyle = this.color;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+    ctx.fill();
+    // border
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 5, 10 * Math.PI);
+    ctx.stroke();
+  }
 }

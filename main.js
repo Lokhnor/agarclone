@@ -1,7 +1,5 @@
 // make these functions reusable by other entities:
 
-// directionalInput();
-// movePlayer();
 // foodCollision();
 
 var ctx = document.getElementById("ctx").getContext("2d");
@@ -17,28 +15,16 @@ let player2 = new Player();
 
 class Food {
   constructor() {
-    (this.x = 300),
-      (this.y = 300),
-      (this.r = 6),
-      (this.color = "yellow"),
-      (this.width = 10),
-      (this.height = 10),
-      (this.value = 10);
+    this.x = 300;
+    this.y = 300;
+    this.r = 6;
+    this.color = "yellow";
+    this.width = 10;
+    this.height = 10;
+    this.value = 10;
   }
 }
 let food = new Food();
-
-function drawPlayer({ color, x, y, r }) {
-  // ball
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, 2 * Math.PI);
-  ctx.fill();
-  // border
-  ctx.beginPath();
-  ctx.arc(x, y, r, 5, 10 * Math.PI);
-  ctx.stroke();
-}
 
 let foodPellets = [];
 
@@ -75,21 +61,6 @@ function drawFood() {
     ctx.beginPath();
     ctx.arc(foodPellets[i].x, foodPellets[i].y, food.r, 0, 2 * Math.PI);
     ctx.fill();
-  }
-}
-
-function movePlayer(player) {
-  if (player.moveRight == true) {
-    player.x += player.stepX;
-  }
-  if (player.moveLeft == true) {
-    player.x -= player.stepX;
-  }
-  if (player.moveUp == true) {
-    player.y -= player.stepY;
-  }
-  if (player.moveDown == true) {
-    player.y += player.stepY;
   }
 }
 
@@ -155,14 +126,13 @@ function drawGame() {
   }
 
   ctx.save();
-  //ctx.translate(player.x - canvas.width / 2, player.y - canvas.height / 2);
-  drawPlayer(player);
-  drawPlayer(player2);
+  player.drawPlayer();
+  player2.drawPlayer();
   window.scrollTo(player.x - 760, player.y - 360);
   ctx.restore();
 
-  movePlayer(player);
-  movePlayer(player2);
+  player.move();
+  player2.move();
 
   drawFood(); // draw all foodPellets
   foodCollision(); // monitors distance between player and foodPellets, deletes food on collision
@@ -209,6 +179,19 @@ function drawGame() {
     }
     if (event.keyCode === 83) {
       player.moveDown = false;
+    }
+    // player 2
+    if (event.keyCode === 39) {
+      player2.moveRight = false;
+    }
+    if (event.keyCode === 37) {
+      player2.moveLeft = false;
+    }
+    if (event.keyCode === 38) {
+      player2.moveUp = false;
+    }
+    if (event.keyCode === 40) {
+      player2.moveDown = false;
     }
   };
 }
