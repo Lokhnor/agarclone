@@ -2,14 +2,9 @@ var ctx = document.getElementById("ctx").getContext("2d");
 var canvas = document.getElementById("ctx");
 ctx.font = "30px Arial";
 
-const settings = {
-  growthRate: 0.4
-};
-// creating Player instances
 let player = new Player();
 player.color = "blue";
 let player2 = new Player();
-// creating Food instances
 let food = new Food();
 
 let foodPellets = [];
@@ -96,9 +91,6 @@ function foodCollision(player) {
 
 const gameLoop = setInterval(drawGame, 17);
 
-let leaderboard = 1;
-let bgColor = "#1a1a1a";
-
 let i = 0;
 
 function collision() {
@@ -120,7 +112,7 @@ function collision() {
 player2.x = 400;
 function drawGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
-  ctx.fillStyle = bgColor; // background color
+  ctx.fillStyle = "#1a1a1a"; // background color
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   player.drawPlayer();
