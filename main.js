@@ -94,13 +94,30 @@ function foodCollision(player) {
   }
 }
 
-setInterval(drawGame, 17);
+const gameLoop = setInterval(drawGame, 17);
 
 let leaderboard = 1;
 let bgColor = "#1a1a1a";
 
 let i = 0;
 
+function collision() {
+  if (
+    Math.abs(player.x - player2.x) <= player.r + player2.r &&
+    Math.abs(player.y - player2.y) <= player.r + player2.r
+  ) {
+    if (player.r > player2.r) {
+      player2 = "loser";
+      alert("Player 1 Wins!");
+      clearInterval(gameLoop);
+    } else {
+      player = "loser";
+      alert("Player 2 Wins!");
+      clearInterval(gameLoop);
+    }
+  }
+}
+player2.x = 400;
 function drawGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // clear screen to draw next frame
   ctx.fillStyle = bgColor; // background color
@@ -114,6 +131,8 @@ function drawGame() {
 
   player.growthControl();
   player2.growthControl();
+
+  collision();
 
   window.scrollTo(player.x - 760, player.y - 360);
 
