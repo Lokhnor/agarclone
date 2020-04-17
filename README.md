@@ -1,5 +1,7 @@
 # agarclone
 
+Play the live game at http://bigball.netlify.com/
+
 Hello! 
 
 This is a project that aims to clone (or get close enough) the game "www.agar.io".</br>
