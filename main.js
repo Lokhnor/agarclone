@@ -162,29 +162,29 @@ function drawGame() {
 
   document.onkeyup = function (event) {
     if (event.key === "d") {
-      player.moveRight = true;
+      player.moveRight = false;
     }
     if (event.key === "a") {
-      player.moveLeft = true;
+      player.moveLeft = false;
     }
     if (event.key === "w") {
-      player.moveUp = true;
+      player.moveUp = false;
     }
     if (event.key === "s") {
-      player.moveDown = true;
+      player.moveDown = false;
     }
     // player 2
     if (event.key === "ArrowRight") {
-      player2.moveRight = true;
+      player2.moveRight = false;
     }
     if (event.key === "ArrowLeft") {
-      player2.moveLeft = true;
+      player2.moveLeft = false;
     }
     if (event.key === "ArrowUp") {
-      player2.moveUp = true;
+      player2.moveUp = false;
     }
     if (event.key === "ArrowDown") {
-      player2.moveDown = true;
+      player2.moveDown = false;
     }
   };
 }
