@@ -32,7 +32,7 @@ function generateFood() {
     y: food.y,
     r: food.r,
     color: food.color,
-    value: food.value
+    value: food.value,
   });
 }
 
@@ -82,7 +82,7 @@ function foodCollision(player) {
           x: food.x,
           y: food.y,
           r: food.r,
-          color: food.color
+          color: food.color,
         };
       }
     }
@@ -132,58 +132,58 @@ function drawGame() {
   foodCollision(player); // monitors distance between player and foodPellets, deletes food on collision
   foodCollision(player2);
 
-  document.onkeydown = function(event) {
-    if (event.keyCode === 68) {
+  document.onkeydown = function (event) {
+    if (event.key === "d") {
       player.moveRight = true;
     }
-    if (event.keyCode === 65) {
+    if (event.key === "a") {
       player.moveLeft = true;
     }
-    if (event.keyCode === 87) {
+    if (event.key === "w") {
       player.moveUp = true;
     }
-    if (event.keyCode === 83) {
+    if (event.key === "s") {
       player.moveDown = true;
     }
     //player 2
-    if (event.keyCode === 39) {
+    if (event.key === "ArrowRight") {
       player2.moveRight = true;
     }
-    if (event.keyCode === 37) {
+    if (event.key === "ArrowLeft") {
       player2.moveLeft = true;
     }
-    if (event.keyCode === 38) {
+    if (event.key === "ArrowUp") {
       player2.moveUp = true;
     }
-    if (event.keyCode === 40) {
+    if (event.key === "ArrowDown") {
       player2.moveDown = true;
     }
   };
 
-  document.onkeyup = function(event) {
-    if (event.keyCode === 68) {
+  document.onkeyup = function (event) {
+    if (event.key === "d") {
       player.moveRight = false;
     }
-    if (event.keyCode === 65) {
+    if (event.key === "a") {
       player.moveLeft = false;
     }
-    if (event.keyCode === 87) {
+    if (event.key === "w") {
       player.moveUp = false;
     }
-    if (event.keyCode === 83) {
+    if (event.key === "s") {
       player.moveDown = false;
     }
     // player 2
-    if (event.keyCode === 39) {
+    if (event.key === "ArrowRight") {
       player2.moveRight = false;
     }
-    if (event.keyCode === 37) {
+    if (event.key === "ArrowLeft") {
       player2.moveLeft = false;
     }
-    if (event.keyCode === 38) {
+    if (event.key === "ArrowUp") {
       player2.moveUp = false;
     }
-    if (event.keyCode === 40) {
+    if (event.key === "ArrowDown") {
       player2.moveDown = false;
     }
   };
